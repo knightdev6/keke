@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>KEKE.GG 🐸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f5f9fc;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #e0f7f1;
+      border-bottom: 3px dashed #a2d2a5;
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', monospace;
+      color: #2d8059;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    p.subtext {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .post-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .btn-post {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      background: #81c995;
+      color: white;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .btn-post:hover {
+      background: #6db380;
+    }
+
+    .post {
+      background: white;
+      border-radius: 1.2rem;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      border-left: 5px solid #81c995;
+    }
+
+    .post .user {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      color: #888;
+    }
+
+    .post .text {
+      margin-top: 0.8rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #6a8c7c;
+      margin: 4rem 0 2rem;
+      font-family: 'Press Start 2P', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>KEKE.GG 🐸</h1>
+    <p class="subtext">un endroit doux sur le net...</p>
+  </header>
+
+  <div class="post-container" id="postContainer">
+    <!-- Le bouton est AU-DESSUS -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <a href="#" class="btn-post" onclick="createPost()">📷 Poster une bulle</a>
+    </div>
+
+    <!-- Les messages s'affichent ici -->
+    <div id="messages"></div>
+  </div>
+
+  <footer>
+    MENU | INVENTAIRE | LOG | OPTIONS
+  </footer>
+
+  <script>
+    function generateRandomName() {
+      const names = ['random', 'random'];
+      return names[Math.floor(Math.random() * names.length)];
+    }
+
+    function createPost() {
+      const messagesContainer = document.getElementById("messages");
+      const randomName = generateRandomName();
+      const message = prompt("Que voulez-vous partager ?");
+
+      if (!message) return;
+
+      const newPost = document.createElement('div');
+      newPost.classList.add('post');
+      newPost.innerHTML = `
+        <div class="user">${randomName}</div>
+        <div class="text">${message}</div>
+      `;
+
+      // Ajoute le nouveau message tout en haut des messages
+      messagesContainer.insertBefore(newPost, messagesContainer.firstChild);
+
+      // Supprime si y a plus de 10 messages
+      const posts = messagesContainer.querySelectorAll('.post');
+      if (posts.length > 10) {
+        posts[posts.length - 1].remove();
+      }
+    }
+  </script>
+
+</body>
+</html>
